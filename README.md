@@ -26,5 +26,5 @@ the flasher will function according to the following steps:
 
 For illustrating purpose, images of typical workflow are attached below:
 
-<img src="workflow_with_no_kickback.png"> <br />
-<img src="workflow_with_kickback.png"> <br />
+<img src="work_flow_with_no_kickback.png"> <br />
+<img src="work_flow_with_kickback.png"> <br />
