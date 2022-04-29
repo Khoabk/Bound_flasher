@@ -28,3 +28,12 @@ For illustrating purpose, images of typical workflow are attached below:
 
 <img src="work_flow_with_no_kickback.png"> <br />
 <img src="work_flow_with_kickback.png"> <br />
+
+
+## Finite state machine:
+
+<img src="FSM.png"> <br />
+
+## Block diagram:
+
+<img src="Block_diagram.png"> <br />
