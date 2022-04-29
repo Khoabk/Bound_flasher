@@ -1,0 +1,239 @@
+
+always @ (*)
+begin
+	
+	
+	if(!rst_n) begin
+	
+		count = -1;
+
+		val = 0;
+		
+		update = 0;
+		
+	end
+	
+	
+	else begin
+	
+	next_state = 6'b000000;
+	
+			case(state)
+			
+				INIT: 
+					
+					if(count < 0 && flick) begin
+					
+						count = 0;
+						
+						update = 1;
+						
+						val = 1;
+						
+						next_state = ZERO_TO_FIVE;
+					
+					end
+					
+					
+					else if(count >= 0) begin
+					
+						count = count - 1;
+						
+						update = 1;
+						
+						val = 0;
+					
+						next_state = INIT;
+					
+					end
+					
+					else begin
+					
+						count = count;
+						
+						val = val;
+					
+						update = 0;
+						
+						next_state = INIT;
+					
+					end
+				
+				ZERO_TO_FIVE:
+				
+					if(count < 5) begin
+					
+						count = count + 1;
+						
+						update = 1;
+						
+						val = 1;
+						
+						next_state = ZERO_TO_FIVE;
+					
+					end
+					
+					
+					else begin
+					
+						count = count - 1;
+						
+						update = 1;
+						
+						val = 0;
+						
+						next_state = OFF_TO_ZERO;
+					
+					end
+				
+				OFF_TO_ZERO:
+				
+					if(count < 0) begin
+					
+						count = count + 1;
+						
+						update = 1;
+						
+						val = 1;
+						
+						next_state = ZERO_TO_TEN;
+					
+					end
+					
+					else begin
+					
+						count = count - 1;
+						
+						update = 1;
+						
+						val = 0;
+						
+						next_state = OFF_TO_ZERO;
+					
+					end
+					
+				
+				ZERO_TO_TEN:
+				
+					if(flick && (count == 5 || count == 10)) begin
+					
+						count = count - 1;
+						
+						update = 1;
+						
+						val = 0;
+						
+						next_state = OFF_TO_ZERO;
+					
+					end
+					
+					else if(count < 10) begin
+					
+						count = count + 1;
+						
+						update = 1;
+					
+						val = 1;
+						
+						next_state = ZERO_TO_TEN;
+					
+					end
+					
+					else begin
+					
+						count = count - 1;
+						
+						update = 1;
+						
+						val = 0;
+						
+						next_state = OFF_TO_FOUR;
+					
+					end
+					
+				OFF_TO_FOUR:
+				
+					if(count > 4) begin
+					
+						count = count - 1;
+						
+						update = 1;
+						
+						val = 0;
+						
+						next_state = OFF_TO_FOUR;
+					
+					end
+					
+					else begin
+					
+						count = count + 1;
+						
+						update = 1;
+						
+						val = 1;
+					
+						next_state = FOUR_TO_FTEEN;
+					
+					end
+				
+				
+				FOUR_TO_FTEEN:
+				
+					if(flick && (count == 5 || count == 10)) begin
+				
+						count = count - 1;
+						
+						update = 1;
+						
+						val = 0;
+						
+						next_state = OFF_TO_FOUR;
+					
+					end
+					
+					else if(count < 15) begin
+					
+						count = count + 1;
+						
+						update = 1;
+					
+						val = 1;
+						
+						next_state = FOUR_TO_FTEEN;
+					
+					end
+					
+					else begin
+					
+						count = count - 1;
+						
+						update = 1;
+						
+						val = 0;
+						
+						next_state = INIT;
+					
+					end
+					
+				default: 
+				
+					begin
+						
+						count = -1;
+					
+						update = 0;
+						
+						val = 0;
+						
+						next_state = INIT;
+						
+					end
+						
+			endcase
+	
+	end
+		
+		
+end
+
